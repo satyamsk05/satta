@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --border: #eaeaea;
+      --text: #171717;
+      --text-muted: #666666;
+      --primary: #000000;
+      --primary-hover: #333333;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --pending: #d97706;
+      --pending-bg: #fffbeb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 3rem 2rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      border: 1px solid var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #f5f5f5;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .btn-success:hover {
+      background: #15803d;
+      border-color: #15803d;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input-group {
+      margin: 1rem 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: 0.75rem 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-win {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .badge-lose {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .badge-pending {
+      background: var(--pending-bg);
+      color: var(--pending);
+    }
+
+    .wallet {
+      font-family: monospace;
+      font-weight: 600;
+    }
+    
+    .wallet-edit-btn {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+    }
+    
+    .delete-user-btn {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.75rem;
+      margin-left: 0.25rem;
+      background-color: var(--danger);
+      border-color: var(--danger);
+    }
+    
+    .delete-user-btn:hover {
+      background-color: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .trend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      background: #f4f4f5;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.5rem;
+    }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Console / Dashboard</h1>
+      <button class="btn btn-secondary" onclick="location.reload()">Refresh</button>
+    </header>
+
+    <!-- Overview & Game Stats -->
+    <div class="card">
+      <div class="stats-row">
+        <div style="display: flex; gap: 3rem;">
+          <div class="stat-item">
+            <span class="stat-label">Total Users</span>
+            <span class="stat-value"><%= stats.totalUsers %></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Rounds</span>
+            <span class="stat-value"><%= stats.totalRounds %></span>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-danger" onclick="resetSystem()">⚠️ Reset Data</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Analytics Panel -->
+    <div class="card">
+      <div class="card-title">Win Rate & Trend Analytics</div>
+      <div style="font-size: 0.875rem;">
+        <span style="color: var(--text-muted);">Winning Numbers Heatmap:</span>
+        <div style="margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          <% 
+            let winsCount = Array(10).fill(0);
+            recentPredictions.forEach(p => {
+              if (p.status === 'win') {
+                winsCount[p.number] = (winsCount[p.number] || 0) + 1;
+              }
+            });
+            for(let i=0; i<10; i++) {
+          %>
+            <div class="trend-pill">
+              <strong><%= i %></strong>: <span><%= winsCount[i] %> Wins</span>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Round Controls -->
+      <div class="card">
+        <div class="card-title">Round Controller</div>
+        <div id="round-status-box">
+          <% if (activeRound) { %>
+            <div style="font-size: 0.875rem; margin-bottom: 1rem;">
+              <p>Active Round ID: <strong style="font-family: monospace;"><%= activeRound._id %></strong></p>
+              <p>Ends: <strong><%= new Date(activeRound.endTime).toLocaleTimeString() %></strong></p>
+            </div>
+            <div class="input-group">
+              <input type="number" id="winNum" min="0" max="9" placeholder="Set winning number (0-9)">
+            </div>
+            <button class="btn btn-success" style="width: 100%;" onclick="closeRound('<%= activeRound._id %>')">Close & Declare</button>
+          <% } else { %>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">No active round running.</p>
+            <button class="btn" style="width: 100%;" onclick="startRound()">Start New Round</button>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Users -->
+      <div class="card">
+        <div class="card-title">Registered Players & Wallet Mgmt</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user => { %>
+              <tr>
+                <td><%= user.username %></td>
+                <td style="text-align: right;" class="wallet">
+                  <span><%= user.walletBalance %> pts</span>
+                  <button class="btn btn-secondary wallet-edit-btn" onclick="modifyWallet('<%= user._id %>', '<%= user.username %>')">Edit</button>
+                  <button class="btn btn-danger delete-user-btn" onclick="deleteUser('<%= user._id %>', '<%= user.username %>')">Del</button>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Predictions -->
+    <div class="card" style="margin-top: 2rem;">
+      <div class="card-title">Recent Bets & Activity</div>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Predicted Number</th>
+            <th>Points</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (recentPredictions.length === 0) { %>
+            <tr>
+              <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No recent predictions.</td>
+            </tr>
+          <% } else { %>
+            <% recentPredictions.forEach(pred => { %>
+              <tr>
+                <td><%= pred.userId ? pred.userId.username : 'Guest' %></td>
+                <td><strong><%= pred.number %></strong></td>
+                <td><%= pred.points %> pts</td>
+                <td>
+                  <span class="badge badge-<%= pred.status %>">
+                    <%= pred.status %>
+                  </span>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    // Initialize Socket Connection for Real-Time Updates!
+    const socket = io();
+
+    socket.on('new_round', (data) => {
+      console.log('New round started via socket:', data);
+      // Auto-reload to fetch fresh active round data, or update elements dynamically
+      location.reload();
+    });
+
+    socket.on('round_closed', (data) => {
+      console.log('Round closed via socket:', data);
+      alert(`Round closed! Winning number is: ${data.winningNumber}`);
+      location.reload();
+    });
+
+    async function startRound() {
+      try {
+        const response = await fetch('/api/admin/rounds', { method: 'POST' });
+        location.reload();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function closeRound(roundId) {
+      const winNumInput = document.getElementById('winNum').value;
+      const body = {};
+      if (winNumInput !== '') {
+        body.winningNumber = parseInt(winNumInput);
+      }
+      
+      try {
+        const response = await fetch(`/api/admin/rounds/${roundId}/close`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        location.reload();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function modifyWallet(userId, username) {
+      const amount = prompt(`Enter points to add (positive) or subtract (negative) for ${username}:`);
+      if (amount === null || amount === '' || isNaN(amount)) return;
+
+      try {
+        const response = await fetch(`/api/admin/users/${userId}/wallet`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: parseInt(amount) })
+        });
+        const data = await response.json();
+        alert(data.message);
+        location.reload();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function deleteUser(userId, username) {
+      if (!confirm(`Are you sure you want to delete user "${username}"? This will delete all their prediction history as well.`)) return;
+      try {
+        const response = await fetch(`/api/admin/users/${userId}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        alert(data.message);
+        location.reload();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function resetSystem() {
+      if (!confirm('Are you sure you want to delete all rounds & predictions, and reset user wallets to 1000?')) return;
+      try {
+        const response = await fetch('/api/admin/system/reset', { method: 'POST' });
+        const data = await response.json();
+        alert(data.message);
+        location.reload();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
