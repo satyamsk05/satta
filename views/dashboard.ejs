@@ -73,6 +73,42 @@
       border-color: var(--primary-hover);
     }
 
+    /* Uiverse Styled Animated Loading Button */
+    .btn-animate {
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .btn-animate:active {
+      transform: scale(0.97);
+    }
+
+    .btn-animate.loading {
+      color: transparent !important;
+      pointer-events: none;
+    }
+
+    .btn-animate.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 3px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: button-spinner-anim 0.8s linear infinite;
+    }
+
+    @keyframes button-spinner-anim {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .btn-secondary {
       background: transparent;
       color: var(--text);
@@ -160,19 +196,53 @@
       margin: 1rem 0;
     }
 
-    input {
-      width: 100%;
-      padding: 0.5rem 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.15s ease;
+    /* Uiverse styled floating label input */
+    .uiverse-input-group {
+      position: relative;
+      margin: 1.5rem 0;
     }
 
-    input:focus {
+    .uiverse-input {
+      font-family: inherit;
+      width: 100%;
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 0.8rem 1rem;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      color: var(--text);
+      outline: none;
+    }
+
+    .uiverse-input::placeholder {
+      color: transparent;
+    }
+
+    .uiverse-input-group .uiverse-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: 0.3s ease all;
+      font-size: 0.875rem;
+      background-color: var(--surface);
+      padding: 0 0.25rem;
+    }
+
+    .uiverse-input:focus ~ .uiverse-label,
+    .uiverse-input:not(:placeholder-shown) ~ .uiverse-label {
+      top: 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .uiverse-input:focus {
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
     }
 
     table {
@@ -240,7 +310,7 @@
       border-color: #b91c1c;
     }
 
-    .trend-pill {
+     .trend-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
@@ -251,10 +321,119 @@
       font-weight: 500;
       margin-right: 0.5rem;
     }
+
+    /* Loading Animation styles */
+    .loader {
+      width: 45px;
+      height: 40px;
+      background: linear-gradient(#0000 calc(1*100%/6),#fff 0 calc(3*100%/6),#0000 0),
+                linear-gradient(#0000 calc(2*100%/6),#fff 0 calc(4*100%/6),#0000 0),
+                linear-gradient(#0000 calc(3*100%/6),#fff 0 calc(5*100%/6),#0000 0);
+      background-size: 10px 400%;
+      background-repeat: no-repeat;
+      animation: matrix 1s infinite linear;
+    }
+
+    @keyframes matrix {
+      0% {
+        background-position: 0% 100%, 50% 100%, 100% 100%
+      }
+      100% {
+        background-position: 0% 0%, 50% 0%, 100% 0%
+      }
+    }
+
+    /* Mechanical Timer Module styles */
+    .mechanical-timer-module {
+      display: inline-flex;
+      align-items: center;
+      gap: 0px;
+      background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
+      padding: 16px 24px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow:
+        0 16px 32px -8px rgba(0, 0, 0, 0.9),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .time-group {
+      display: flex;
+      gap: 4px;
+    }
+
+    .time-separator {
+      font-family: "Space Mono", monospace;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #8c8c8d;
+      animation: blink 1s step-end infinite;
+      margin: 0 4px;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .digit-casing {
+      position: relative;
+      width: 44px;
+      height: 56px;
+      background: #212121;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 8px 16px rgba(0, 0, 0, 1),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.05),
+        0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .digit-casing::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+      transform: translateY(-50%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .digit-track {
+      display: flex;
+      flex-direction: column;
+      transform: translateY(calc(var(--val) * -56px));
+      transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+    }
+
+    .digit-track span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 56px;
+      font-family: "Space Mono", monospace;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ccff00;
+      text-shadow: 0 0 16px rgba(204, 255, 0, 0.3);
+      line-height: 1;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
   </style>
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+
+  <!-- Fullscreen Loading Overlay -->
+  <div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9,9,11,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+    <div class="loader"></div>
+    <div style="margin-top: 1.5rem; font-weight: 600; color: #ffffff; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em;">PROCESSING REQUEST</div>
+  </div>
 
   <div class="container">
     <header>
@@ -276,7 +455,7 @@
           </div>
         </div>
         <div>
-          <button class="btn btn-danger" onclick="resetSystem()">⚠️ Reset Data</button>
+          <button class="btn btn-danger btn-animate" onclick="resetSystem(this)">⚠️ Reset Data</button>
         </div>
       </div>
     </div>
@@ -311,16 +490,48 @@
         <div id="round-status-box">
           <% if (activeRound) { %>
             <div style="font-size: 0.875rem; margin-bottom: 1rem;">
-              <p>Active Round ID: <strong style="font-family: monospace;"><%= activeRound._id %></strong></p>
-              <p>Ends: <strong><%= new Date(activeRound.endTime).toLocaleTimeString() %></strong></p>
+              <p style="margin-bottom: 0.75rem;">Active Round ID: <strong style="font-family: monospace;"><%= activeRound._id %></strong></p>
+              
+              <!-- Mechanical Timer Component -->
+              <div style="display: flex; justify-content: center; margin: 1rem 0;">
+                <div class="mechanical-timer-module">
+                  <div class="time-group">
+                    <div class="digit-casing" id="m1" style="--val: 0;">
+                      <div class="digit-track">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      </div>
+                    </div>
+                    <div class="digit-casing" id="m2" style="--val: 0;">
+                      <div class="digit-track">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="time-separator">:</div>
+                  <div class="time-group">
+                    <div class="digit-casing" id="s1" style="--val: 0;">
+                      <div class="digit-track">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      </div>
+                    </div>
+                    <div class="digit-casing" id="s2" style="--val: 0;">
+                      <div class="digit-track">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" id="round-endtime" value="<%= activeRound.endTime %>">
             </div>
-            <div class="input-group">
-              <input type="number" id="winNum" min="0" max="9" placeholder="Set winning number (0-9)">
+            <div class="uiverse-input-group">
+              <input class="uiverse-input" type="number" id="winNum" min="0" max="9" required="" placeholder="Set winning number (0-9)">
+              <label class="uiverse-label">Winning Number (0-9)</label>
             </div>
-            <button class="btn btn-success" style="width: 100%;" onclick="closeRound('<%= activeRound._id %>')">Close & Declare</button>
+            <button class="btn btn-success btn-animate" style="width: 100%;" onclick="closeRound('<%= activeRound._id %>', this)">Close & Declare</button>
           <% } else { %>
             <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">No active round running.</p>
-            <button class="btn" style="width: 100%;" onclick="startRound()">Start New Round</button>
+            <button class="btn btn-animate" style="width: 100%;" onclick="startRound(this)">Start New Round</button>
           <% } %>
         </div>
       </div>
@@ -404,22 +615,36 @@
       location.reload();
     });
 
-    async function startRound() {
+    function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+    }
+
+    function hideLoading() {
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+
+    async function startRound(btn) {
+      if (btn) btn.classList.add('loading');
+      showLoading();
       try {
         const response = await fetch('/api/admin/rounds', { method: 'POST' });
         location.reload();
       } catch (err) {
+        if (btn) btn.classList.remove('loading');
+        hideLoading();
         alert('Error: ' + err.message);
       }
     }
 
-    async function closeRound(roundId) {
+    async function closeRound(roundId, btn) {
       const winNumInput = document.getElementById('winNum').value;
       const body = {};
       if (winNumInput !== '') {
         body.winningNumber = parseInt(winNumInput);
       }
       
+      if (btn) btn.classList.add('loading');
+      showLoading();
       try {
         const response = await fetch(`/api/admin/rounds/${roundId}/close`, {
           method: 'POST',
@@ -428,6 +653,8 @@
         });
         location.reload();
       } catch (err) {
+        if (btn) btn.classList.remove('loading');
+        hideLoading();
         alert('Error: ' + err.message);
       }
     }
@@ -436,6 +663,7 @@
       const amount = prompt(`Enter points to add (positive) or subtract (negative) for ${username}:`);
       if (amount === null || amount === '' || isNaN(amount)) return;
 
+      showLoading();
       try {
         const response = await fetch(`/api/admin/users/${userId}/wallet`, {
           method: 'POST',
@@ -446,12 +674,15 @@
         alert(data.message);
         location.reload();
       } catch (err) {
+        hideLoading();
         alert('Error: ' + err.message);
       }
     }
 
     async function deleteUser(userId, username) {
       if (!confirm(`Are you sure you want to delete user "${username}"? This will delete all their prediction history as well.`)) return;
+      
+      showLoading();
       try {
         const response = await fetch(`/api/admin/users/${userId}`, {
           method: 'DELETE'
@@ -460,20 +691,60 @@
         alert(data.message);
         location.reload();
       } catch (err) {
+        if (btn) btn.classList.remove('loading');
+        hideLoading();
         alert('Error: ' + err.message);
       }
     }
 
-    async function resetSystem() {
+    async function resetSystem(btn) {
       if (!confirm('Are you sure you want to delete all rounds & predictions, and reset user wallets to 1000?')) return;
+      
+      if (btn) btn.classList.add('loading');
+      showLoading();
       try {
         const response = await fetch('/api/admin/system/reset', { method: 'POST' });
         const data = await response.json();
         alert(data.message);
         location.reload();
       } catch (err) {
+        if (btn) btn.classList.remove('loading');
+        hideLoading();
         alert('Error: ' + err.message);
       }
+    }
+
+    // Real-Time Countdown Timer Logic for Mechanical Module
+    const endTimeVal = document.getElementById('round-endtime')?.value;
+    if (endTimeVal) {
+      const endTime = new Date(endTimeVal).getTime();
+      
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = endTime - now;
+        
+        if (diff <= 0) {
+          document.getElementById('m1').style.setProperty('--val', '0');
+          document.getElementById('m2').style.setProperty('--val', '0');
+          document.getElementById('s1').style.setProperty('--val', '0');
+          document.getElementById('s2').style.setProperty('--val', '0');
+          return;
+        }
+        
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        const mStr = String(minutes).padStart(2, '0');
+        const sStr = String(seconds).padStart(2, '0');
+        
+        document.getElementById('m1').style.setProperty('--val', mStr[0]);
+        document.getElementById('m2').style.setProperty('--val', mStr[1]);
+        document.getElementById('s1').style.setProperty('--val', sStr[0]);
+        document.getElementById('s2').style.setProperty('--val', sStr[1]);
+      }
+      
+      updateTimer();
+      setInterval(updateTimer, 1000);
     }
   </script>
 </body>
