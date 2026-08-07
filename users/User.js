@@ -15,6 +15,11 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 500 // 500 Welcome bonus points
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   createdAt: {
     type: Date,
     default: Date.now

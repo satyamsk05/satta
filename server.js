@@ -33,8 +33,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const adminBasicAuth = require('./auth/adminAuthMiddleware');
+const { authenticateToken, requireAdmin } = require('./auth/authMiddleware');
+
 // Admin Web View Dashboard Route
-app.get('/admin', async (req, res) => {
+app.get('/admin', adminBasicAuth, async (req, res) => {
   try {
     const User = require('./users/User');
     const Round = require('./rounds/Round');
@@ -64,7 +67,7 @@ app.get('/admin', async (req, res) => {
 app.use('/api/auth', require('./auth/authController'));
 app.use('/api/users', require('./users/usersController'));
 app.use('/api/game', require('./games/gamesController'));
-app.use('/api/admin', require('./admin/adminController'));
+app.use('/api/admin', authenticateToken, requireAdmin, require('./admin/adminController'));
 
 // Base Route
 app.get('/', (req, res) => {
